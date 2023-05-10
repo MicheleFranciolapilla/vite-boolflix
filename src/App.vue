@@ -10,23 +10,28 @@
     data()
     {
       return {
+        // Costanti semantiche per composizione url api:
+        url_movie       : 0,
         store,
         api_actual_url  : ""
       }
     },
-    methods:
+    computed:
     {
-      set_actual_url()
-      {
-        this.api_actual_url = store.api_basic_url.concat(store.api_methods[0],store.api_media[0],store.api_query_string,"f09b39899c2ea83b3cca2614bae582e3","&query=",store.string_to_search);
-      },
-
       call_api()
       {
-        // this.set_actual_url();
+        const api_key = "f09b39899c2ea83b3cca2614bae582e3";
         console.log("from the deep....",this.store.item_str);
-        // axios.get(this.api_actual_url).then((res) => {console.log(res.data)});
+        this.api_actual_url = this.store.set_api_url(this.url_movie, api_key);
+        console.log(this.api_actual_url);
+        axios.get(this.api_actual_url).then( res => 
+          {console.log(res.data)
+          });
       }
+    },
+    methods:
+    {
+
     }
   }
 </script>
