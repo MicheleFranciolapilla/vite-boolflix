@@ -2,3 +2,10 @@
 @import "./scss_partials/_variables.scss";
 @import "./scss_partials/_mixin.scss";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.std_flex
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
