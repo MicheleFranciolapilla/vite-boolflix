@@ -11,9 +11,11 @@
     {
       return {
         // Costanti semantiche per composizione url api:
-        store,
+        // **********************
         url_movie         : 0,
         url_tv            : 1, 
+        // **********************
+        store,
         api_actual_url    : ["",""],
         api_actual_pages  : [0,0],
         max_pages         : 5 
@@ -21,16 +23,40 @@
     },
     methods:
     {
-      call_api()
+      async call_api()
       {
           this.store.previous_input = this.store.current_input;
+          this.store.data_arrays[this.url_movie] = [];
+          this.store.data_arrays[this.url_tv] = [];
+
           console.log("evento propagato....",this.store.current_input);
 
           for (let i = this.url_movie; i <= this.url_tv; i++)
           {
-            this.api_actual_url[i] = this.store.set_api_url(i, this.store.api_key);
-            console.log(this.api_actual_url[i]);
+            let page_count = 0;
+            do
+            {
+              page_count++;
+              this.api_actual_url[i] = this.store.set_api_url(i, this.store.api_key, page_count);
+              console.log(this.api_actual_url[i]);
+              await axios.get(this.api_actual_url[i]).then( res => 
+              {
+                console.log(`results di i=${i} e page=${page_count}`,res.data);
+                console.log("total pages: ", res.data.total_pages);
+                if (page_count == 1)
+                {
+                  this.api_actual_pages[i] = Math.min(5,parseInt(res.data.total_pages));
+                }
+                for (let j = 0; j < res.data.results.length; j++)
+                {
+                  this.store.data_arrays[i].push(res.data.results[j]);
+                }
+              });
+            } while (page_count < this.api_actual_pages[i]);
           }
+          console.log("films: ", this.store.data_arrays[0]);
+          console.log("serie: ", this.store.data_arrays[1]);
+
 
 
           // let leave_loop = false;

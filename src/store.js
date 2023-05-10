@@ -19,11 +19,9 @@ export const store = reactive(
                                 // codici per richiesta base tv
                                 [0,1,0,5,6,8,7,9]
                             ], 
+        data_arrays         : [[],[]], 
 
-        movies_array        : [], 
-        tv_series_array     : [], 
-
-        set_api_url(code, api_key)
+        set_api_url(code, api_key, page)
         {
             let final_url = this.api_url_base;
             this.api_url_codes[code].forEach( index =>
@@ -39,6 +37,10 @@ export const store = reactive(
                             break
                         case 8:
                             fragment = fragment.concat(this.language_array[this.current_lang]);
+                            break;
+                        case 9:
+                            fragment = fragment.concat(page.toString());
+                            break;
                     }
                     final_url = final_url.concat(fragment);
                 });
