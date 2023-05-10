@@ -11,28 +11,37 @@
     {
       return {
         // Costanti semantiche per composizione url api:
-        url_movie       : 0,
         store,
-        api_actual_url  : ""
-      }
-    },
-    computed:
-    {
-      call_api()
-      {
-        const api_key = "f09b39899c2ea83b3cca2614bae582e3";
-        this.store.previous_input = this.store.current_input;
-        console.log("from the deep....",this.store.current_input);
-        this.api_actual_url = this.store.set_api_url(this.url_movie, api_key);
-        console.log(this.api_actual_url);
-        axios.get(this.api_actual_url).then( res => 
-          {console.log(res.data)
-          });
+        url_movie         : 0,
+        url_tv            : 1, 
+        api_actual_url    : ["",""],
+        api_actual_pages  : [0,0],
+        max_pages         : 5 
       }
     },
     methods:
     {
+      call_api()
+      {
+          this.store.previous_input = this.store.current_input;
+          console.log("evento propagato....",this.store.current_input);
 
+          for (let i = this.url_movie; i <= this.url_tv; i++)
+          {
+            this.api_actual_url[i] = this.store.set_api_url(i, this.store.api_key);
+            console.log(this.api_actual_url[i]);
+          }
+
+
+          // let leave_loop = false;
+          // do
+          // {
+          //   axios.get(this.api_actual_url).then( res => 
+          //   {console.log(res.data)
+
+          //   });
+          // } while (!leave_loop);
+      }
     }
   }
 </script>

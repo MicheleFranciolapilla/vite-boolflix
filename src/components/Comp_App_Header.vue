@@ -11,6 +11,7 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
         data()
         {
             return {
+                num : 0,
                 store
             }
         },
@@ -18,7 +19,19 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
         {
             propagate_from_search(event)
             {
-                if ((!this.store.is_invalid()) && (this.store.is_new_input())) 
+                console.log("tipo di evento....",event.type);
+                console.log("tipo di tasto....",event.key);
+
+                this.num++;
+                console.log(`***** ${this.num} *****`);
+                console.log("evento: ",event);
+                console.log("previous: ", this.store.previous_input);
+                console.log("current: ", this.store.current_input);
+                console.log("invalid input? ", this.store.is_invalid());
+                console.log("new input? ", this.store.is_new_input());
+                console.log("**********************");
+            
+                if (!(this.store.is_invalid()) && (this.store.is_new_input())) 
                     this.$emit("go_to_call");
             }
         }
