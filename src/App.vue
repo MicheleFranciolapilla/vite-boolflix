@@ -21,7 +21,8 @@
       call_api()
       {
         const api_key = "f09b39899c2ea83b3cca2614bae582e3";
-        console.log("from the deep....",this.store.item_str);
+        this.store.previous_input = this.store.current_input;
+        console.log("from the deep....",this.store.current_input);
         this.api_actual_url = this.store.set_api_url(this.url_movie, api_key);
         console.log(this.api_actual_url);
         axios.get(this.api_actual_url).then( res => 

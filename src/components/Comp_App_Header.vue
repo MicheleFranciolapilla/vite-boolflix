@@ -16,9 +16,10 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
         },
         methods:
         {
-            event_from_search()
+            propagate_from_search(event)
             {
-                this.$emit("go_to_call");
+                if ((!this.store.is_invalid()) && (this.store.is_new_input())) 
+                    this.$emit("go_to_call");
             }
         }
     }
@@ -26,7 +27,7 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
 
 <template>
     <header class="std_flex">
-        <Comp_Search_Bar @search_key_up = "event_from_search" />
+        <Comp_Search_Bar @search_event = "$event => propagate_from_search($event)" />
     </header>
 </template>
 

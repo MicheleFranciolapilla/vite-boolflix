@@ -2,7 +2,9 @@
 import { reactive } from "vue";
 export const store = reactive(
     {
-        item_str            : "",
+        
+        current_input       : "",
+        previous_input      : "", 
         
         api_url_base        : "https://api.themoviedb.org/3",
         // Array dei frammenti da utilizzare per completare il corretto url della api, a seconda delle esigenze
@@ -28,11 +30,20 @@ export const store = reactive(
                             fragment = fragment.concat(api_key);
                             break;
                         case 7:
-                            fragment = fragment.concat(this.item_str);
+                            fragment = fragment.concat(this.current_input);
                             break
                     }
                     final_url = final_url.concat(fragment);
                 });
             return final_url;
+        },
+
+        is_new_input() { (this.current_input != this.previous_input); },
+
+        is_invalid()
+        {
+            for (let i = 0; i < this.current_input.length; i++)
+                if (this.current_input[i] != " ") return false;
+            return true;
         }
     })
