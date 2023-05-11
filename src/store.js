@@ -2,7 +2,8 @@
 import { reactive } from "vue";
 export const store = reactive(
     {
-        
+        visualizing         : false, 
+        img_per_row         : 5, 
         current_input       : "",
         previous_input      : "", 
         current_lang        : 0,
@@ -10,7 +11,7 @@ export const store = reactive(
         
         api_url_base        : "https://api.themoviedb.org/3",
         // Array dei frammenti da utilizzare per completare il corretto url della api, a seconda delle esigenze
-                            //   0       1         2         3        4       5       6            7          8           9      10   11  12
+                            //   0       1         2         3        4       5       6            7          8           9        10   11  12
         api_url_fragments   : [ "/", "search", "discover", "find", "movie", "tv", "?api_key=", "&query=", "&language=", "&page=", "&", "=", "+" ], 
         api_key             : "f09b39899c2ea83b3cca2614bae582e3",
         api_url_codes       : [
@@ -20,6 +21,28 @@ export const store = reactive(
                                 [0,1,0,5,6,8,7,9]
                             ], 
         data_arrays         : [[],[]], 
+        data_on_screen      : [[],[]], 
+        data_array_pointers : [0,0],
+
+        create_data_on_screen()
+        {
+            for (let i = 0; i < this.img_per_row; i++)
+            {
+                this.data_on_screen[0].push({});
+                this.data_on_screen[1].push({});
+            }
+        },
+
+        set_data_on_screen(array_index, first_item)
+        {
+            for (let i = 0; i < this.img_per_row; i++)
+            {
+                if (i + first_item < this.data_arrays[array_index].length)
+                    this.data_on_screen[array_index] [i] = this.data_arrays[array_index][i + first_item];
+                else
+                    this.data_on_screen[array_index] [i] = {};
+            }
+        },
 
         set_api_url(code, api_key, page)
         {
@@ -55,4 +78,5 @@ export const store = reactive(
                 if (this.current_input[i] != " ") return false;
             return true;
         }
+
     })

@@ -1,6 +1,6 @@
 <script>
-import { store } from "../store";
-import Comp_Search_Bar from "./Comp_Search_Bar.vue";
+    import { store } from "../store";
+    import Comp_Search_Bar from "./Comp_Search_Bar.vue";
     export default
     {
         name        : "Comp_App_Header",
@@ -31,6 +31,8 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
                 console.log("new input? ", this.store.is_new_input());
                 console.log("**********************");
             
+                this.store.visualizing = !(this.store.is_invalid());
+
                 if (!(this.store.is_invalid()) && (this.store.is_new_input())) 
                     this.$emit("go_to_call");
             }
@@ -39,7 +41,7 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
 </script>
 
 <template>
-    <header class="std_flex">
+    <header class="std_flex opaque">
         <Comp_Search_Bar @search_event = "$event => propagate_from_search($event)" />
     </header>
 </template>
@@ -50,7 +52,7 @@ import Comp_Search_Bar from "./Comp_Search_Bar.vue";
 
     header
     {
+        width: 100%;
         height: $header_height;
-        border: 1px solid yellow;
     }
 </style>

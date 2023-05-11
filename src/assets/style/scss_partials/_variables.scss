@@ -1,8 +1,19 @@
 // Variabili cromatiche
-$app_bg_color       : rgb(27, 24, 24); 
 $search_btn_bg      : lightgray;
 $search_btn_color   : darkgray;
 $search_btn_bg_hov  : white;
 $search_btn_col_hov : blue;
+
+$section_header_col : white;
+$section_fa_ok      : greenyellow;
+$section_fa_bad     : red;  
+$warning_color      : red;
+
+$arrow_color        : white; 
+
 // Variabili dimensionali
 $header_height      : 10vh;
+$top_bar_height     : 5vh; 
+$footer_height      : 7vh; 
+$arrow_area_width   : 5vw; 
+$img_per_row        : 5;
