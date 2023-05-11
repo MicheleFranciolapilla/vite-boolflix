@@ -18,6 +18,7 @@
         store,
         api_actual_url    : ["",""],
         api_actual_pages  : [0,0],
+        api_totals        : [0,0], 
         max_pages         : 5 
       }
     },
@@ -26,6 +27,14 @@
       async call_api()
       {
           this.store.previous_input = this.store.current_input;
+          // reset totale ad inizio procedura
+          for (let i = this.url_movie; i <= this.url_tv; i++)
+          {
+            this.store.data_arrays[i] = [];
+            this.api_actual_url[i] = "";
+            this.api_actual_pages[i] = 0;
+            this.api_totals[i] = 0;
+          }
           this.store.data_arrays[this.url_movie] = [];
           this.store.data_arrays[this.url_tv] = [];
 
@@ -46,6 +55,7 @@
                 if (page_count == 1)
                 {
                   this.api_actual_pages[i] = Math.min(5,parseInt(res.data.total_pages));
+                  this.api_totals[i] = res.data.total_results;
                 }
                 for (let j = 0; j < res.data.results.length; j++)
                 {
