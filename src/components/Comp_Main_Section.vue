@@ -62,7 +62,7 @@
     section
     {
         width: calc(100%);
-        height: calc(45%);
+        height: calc(47%);
         .top_bar
         {
             height: $top_bar_height;
@@ -107,12 +107,13 @@
             .cards_box
             {
                 width: calc(100% - (2 * $arrow_area_width));
-                height: 100%;
+                height: calc(100%);
+                gap: 3px;
                 .single_card
                 {
                     width: calc(100% / $img_per_row);
-                    height: 100%;
-                    border: 3px solid violet;
+                    height: calc(100%);
+                    border: 3px solid transparent;
                 }
             } 
         }

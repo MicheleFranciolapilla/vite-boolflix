@@ -48,6 +48,7 @@
             this.api_totals[i] = 0;
           }
 
+          console.log(this.store.data_on_screen);
           console.log("evento propagato....",this.store.current_input);
 
           for (let i = this.movie; i <= this.tv; i++)
@@ -85,9 +86,10 @@
 </script>
 
 <template>
-  <div id="app_page" class="vh-100 std_flex flex-column justify-content-between">
+  <div id="app_page" class="vh-100 std_flex flex-column justify-content-between" 
+    v-bind:class="(!store.visualizing) ? ('bg_img') : ('')">
       <Comp_App_Header @go_to_call = "call_api" />
-      <main class="pt-5 pb-3 std_flex flex-column justify-content-between" v-if="store.visualizing">
+      <main class="pt-2 pb-1 std_flex flex-column justify-content-between" v-if="store.visualizing">
         <Comp_Main_Section :app_section="movie" :total_found="api_totals[movie]" />
         <Comp_Main_Section :app_section="tv" :total_found="api_totals[tv]" />
       </main>
@@ -101,19 +103,21 @@
 
     #app_page
     {
-      background-image: url("https://user-images.githubusercontent.com/33485020/108069438-5ee79d80-7089-11eb-8264-08fdda7e0d11.jpg");
-      background-size: cover;
+      background-color: $app_bg_color;
+      &.bg_img
+      {
+        background-image: url("https://user-images.githubusercontent.com/33485020/108069438-5ee79d80-7089-11eb-8264-08fdda7e0d11.jpg");
+        background-size: cover;
+      }
       main
       {
         width: calc(100%);
-        flex-grow: 1;
-        border: 3px solid green;
+        height: calc(100% - ($header_height + $footer_height));
       } 
       footer 
       {
         width: 100%;
         height: $footer_height;
-        border: 3px solid blue;
       }
     }
 

@@ -3,12 +3,12 @@ import { reactive } from "vue";
 export const store = reactive(
     {
         visualizing         : false, 
-        img_per_row         : 5, 
+        img_per_row         : 7, 
         current_input       : "",
         previous_input      : "", 
         current_lang        : 0,
         language_array      : ["it_IT"], 
-        
+        image_url_base      : "https://image.tmdb.org/t/p/",
         api_url_base        : "https://api.themoviedb.org/3",
         // Array dei frammenti da utilizzare per completare il corretto url della api, a seconda delle esigenze
                             //   0       1         2         3        4       5       6            7          8           9        10   11  12
@@ -31,6 +31,7 @@ export const store = reactive(
                 this.data_on_screen[0].push({});
                 this.data_on_screen[1].push({});
             }
+            console.log("created...",this.data_on_screen);
         },
 
         set_data_on_screen(array_index, first_item)
@@ -42,6 +43,7 @@ export const store = reactive(
                 else
                     this.data_on_screen[array_index] [i] = {};
             }
+            console.log("after set...",this.data_on_screen);
         },
 
         set_api_url(code, api_key, page)
