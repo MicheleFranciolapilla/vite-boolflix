@@ -27,10 +27,11 @@
         },
         created()
         {
-            window.addEventListener("keydown", event => 
-            {
-                this.check_keys(event);
-            });
+            window.addEventListener("keydown", event => { this.check_keys(event); });
+        },
+        unmounted()
+        {
+            window.removeEventListener("keydown", event => { this.check_keys(event); });
         },
         methods:
         {
