@@ -24,6 +24,7 @@ export const store = reactive(
                             ], 
         data_arrays         : [[],[]], 
         data_on_screen      : [[],[]], 
+        // Array dei puntatori al primo elemento della videata in corso (i valori nell'array sono gli indici all'array data_arrays). Il loro incremento/decremento sarà in misura del valore di img_per_row
         data_array_pointers : [0,0],
 
         create_data_on_screen()

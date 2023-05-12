@@ -31,6 +31,34 @@
             {
                 if (this.app_section != this.store.active_section)
                     this.store.active_section = !this.store.active_section;
+            },
+
+            // Decremento di pagina
+            one_page_back()
+            {
+                // Controllo se il puntatore specifico è diverso da zero, ovvero non punta al primo elemento di data_array, nel qualcaso ho almeno una pagina alle spalle
+                if (this.store.data_array_pointers[this.app_section] != 0)
+                    {
+                        // Decremento il puntatore di un'ampiezza di pagina (cards per rigo)
+                        this.store.data_array_pointers[this.app_section] -= this.store.img_per_row;
+                        this.store.set_data_on_screen(this.app_section,this.store.data_array_pointers[this.app_section]);
+                        // E poi rendo attiva l'ultima card della pagina appena caricata
+                        this.store.active_img[this.app_section] = this.store.img_per_row - 1;
+                    }
+            },
+
+            // Incremento di pagina
+            one_page_forward()
+            {
+                // Controllo se il puntatore specifico ha almeno un'altra ampiezza di pagina prima di arrivare alla fine dell'array data_array, nel qualcaso avanzo di tale quantità
+                if (this.store.data_array_pointers[this.app_section] + this.store.img_per_row <= this.store.data_arrays[this.app_section].length - 1)
+                {
+                    // Incremento il puntatore di un'ampiezza di pagina (cards per rigo)
+                    this.store.data_array_pointers[this.app_section] += this.store.img_per_row;
+                    this.store.set_data_on_screen(this.app_section,this.store.data_array_pointers[this.app_section]);
+                    // E poi rendo attiva la prima card della pagina appena caricata
+                    this.store.active_img[this.app_section] = 0;
+                }
             }
         }
     }
@@ -50,7 +78,7 @@
             <span v-else class="bad">La ricerca non ha prodotto risultati. Si consiglia un input più mirato!</span>
         </div>
         <div class="slider std_flex">
-            <span class="left_scroll"><i class="fa-solid fa-angle-left"></i></span>
+            <span class="left_scroll" v-on:click="one_page_back()"><i class="fa-solid fa-angle-left"></i></span>
             <div class="cards_box std_flex">
                 <div class="single_card"
                     v-for="(item, index) in store.data_on_screen[app_section]"
@@ -58,7 +86,7 @@
                     <Comp_Single_Card :current_card = "item" :index = "index" :app_section = "app_section" />
                 </div>
             </div>
-            <span class="right_scroll"><i class="fa-solid fa-angle-right"></i></span>
+            <span class="right_scroll" v-on:click="one_page_forward()"><i class="fa-solid fa-angle-right"></i></span>
         </div>
     </section>
 </template>
