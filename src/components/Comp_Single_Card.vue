@@ -107,7 +107,13 @@
         <div v-else class="image_box position-relative">
             <div class="overview position-absolute" 
                 v-bind:style="(app_section == movie) ? ('top: 97%; left: 25%;') : ((index == 0) ? ('left: 25%;') : ('right: 25%;'))">
-                <span></span>
+                <h5 class="mt-1 mb-0 text-center">{{ (app_section == movie) ? (current_card.original_title) : (current_card.original_name) }}</h5>
+                <h5 class="mt-0 mb-3 text-center">- {{ (app_section == movie) ? (current_card.title) : (current_card.first_air_date) }} -</h5>
+                <h6>Trama:</h6>
+                <p>{{ current_card.overview }}</p>
+                <h6 class="d-inline-block">Uscita: </h6>
+                <span>- {{ (app_section == movie) ? (current_card.release_date) : (current_card.original_name) }} -</span>
+                <span class="d-block">Per soli adulti: {{ (current_card.adult) ? ('Sì') : ('No')}}</span>
             </div>
             <img v-bind:src="get_image_url()" alt="">
             <div class="details std_flex flex-column">
@@ -163,7 +169,7 @@
                     width: 90%;
                     height: 80%;
                     animation-name: text_appears;
-                    animation-duration: 1.5s;
+                    animation-duration: 0.75s;
                 }
             }
             .overview
@@ -171,13 +177,15 @@
                 width: 0;
                 height: 0;
                 z-index: 999;
+                padding: 7px 4px;
+                font-size: small;
                 bottom: 75%;
                 border: 2px solid black;
                 border-radius: 5px;
                 background-color: $overview_bg_color;
                 overflow-y: auto;
                 opacity: 0;
-                transition: height 0.75s, width 1s, opacity 1.5s;
+                transition: height 0.5s, width 0.75s, opacity 1s;
             }
             img
             {
