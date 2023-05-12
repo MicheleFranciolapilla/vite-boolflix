@@ -41,7 +41,8 @@
 </script>
 
 <template>
-    <header class="std_flex opaque">
+    <header class="std_flex justify-content-between px-5 opaque">
+        <h1>BoolFlix</h1>
         <Comp_Search_Bar @search_event = "$event => propagate_from_search($event)" />
     </header>
 </template>
@@ -54,5 +55,9 @@
     {
         width: 100%;
         height: $header_height;
+        h1
+        {
+            color: $h1_color;
+        }
     }
 </style>
