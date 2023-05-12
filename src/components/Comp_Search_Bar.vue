@@ -17,7 +17,7 @@
         <button id="search_btn" class="std_flex" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-        <input id="search_input" type="text" placeholder="Cerca il tuo film o serie preferiti..." autocomplete="off" v-model="store.current_input">
+        <input id="search_input" type="text" placeholder="Cerca il tuo film o serie preferiti..." autocomplete="off" v-model="store.current_input" v-on:keydown.stop="">
     </form>
 </template>
 
@@ -54,6 +54,10 @@
         #search_input
         {
             padding: 0 5px;
+            &:focus
+            {
+                border: 3px solid $search_bar_focus;
+            }
         }
     }
 </style>

@@ -31,13 +31,11 @@
                     if (this.current_card.poster_path != null) response++;
                 if (this.current_card?.backdrop_path != undefined) 
                     if (this.current_card.backdrop_path != null) response += 2;
-                console.log("response: ",response);
                 return response;
             },
 
             get_image_url()
             {
-                console.log("card: ",this.current_card)
                 let path = "w342";
                 // Priorità al "poster_path"
                 let check = this.check_image_source();

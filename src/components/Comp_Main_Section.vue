@@ -25,8 +25,44 @@
                 store
             }
         },
+        created()
+        {
+            window.addEventListener("keydown", event => 
+            {
+                this.check_keys(event);
+            });
+        },
         methods:
         {
+            check_keys(event)
+            {
+                // Filtro gli eventi freccia laterale per la sola sezione attiva
+                if (((event.key == "ArrowLeft") || (event.key == "ArrowRight")) && (this.app_section == this.store.active_section))
+                {
+                    // Caso "freccia sinistra"
+                    if (event.key == "ArrowLeft")
+                    {
+                        // Se la card attiva è la prima, l'evento equivale ad un "page back"
+                        if (this.store.active_img[this.app_section] == 0)
+                            this.one_page_back();
+                        // Altrimenti ho spazio per spostare di una unità indietro la card attiva
+                        else
+                            this.store.active_img[this.app_section]--;
+                    }
+                    // Caso "freccia destra"
+                    else
+                    {
+                        // Se la card attiva è l'ultima, l'evento equivale ad un "page forward"
+                        if (this.store.active_img[this.app_section] == this.store.img_per_row - 1)
+                            this.one_page_forward();
+                        // Altrimenti verifico se posso spostare di una unità avanti la card attiva
+                        // Il controllo da eseguire a questo punto è se la card attiva è l'ultima di tutto l'array di dati. Se non lo è si può incrementare
+                        else if ((this.store.active_img[this.app_section] + this.store.data_array_pointers[this.app_section]) < this.store.data_arrays[this.app_section].length - 1)
+                            this.store.active_img[this.app_section]++;
+                    }
+                }
+            },
+
             toggle_active_section()
             {
                 if (this.app_section != this.store.active_section)
@@ -59,7 +95,7 @@
                     // E poi rendo attiva la prima card della pagina appena caricata
                     this.store.active_img[this.app_section] = 0;
                 }
-            }
+            },
         }
     }
 </script>

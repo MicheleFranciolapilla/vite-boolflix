@@ -34,7 +34,6 @@ export const store = reactive(
                 this.data_on_screen[0].push({});
                 this.data_on_screen[1].push({});
             }
-            console.log("created...",this.data_on_screen);
         },
 
         set_data_on_screen(array_index, first_item)
@@ -46,7 +45,6 @@ export const store = reactive(
                 else
                     this.data_on_screen[array_index] [i] = {};
             }
-            console.log("after set...",this.data_on_screen);
         },
 
         set_api_url(code, api_key, page)
