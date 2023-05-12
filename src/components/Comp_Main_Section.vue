@@ -24,12 +24,20 @@
                 section_array   : ["Films", "Serie"],
                 store
             }
+        },
+        methods:
+        {
+            toggle_active_section()
+            {
+                if (this.app_section != this.store.active_section)
+                    this.store.active_section = !this.store.active_section;
+            }
         }
     }
 </script>
 
 <template>
-    <section>
+    <section v-bind:class="(app_section == store.active_section) ? ('active') : ('')" v-on:click="toggle_active_section()">
         <div class="top_bar std_flex justify-content-start opaque">
             <h4>{{ section_array[app_section] }}</h4>
             <span class="std_flex">
@@ -63,10 +71,15 @@
     {
         width: calc(100%);
         height: calc(47%);
+        border: 3px solid transparent;
+        &.active
+        {
+            border-color: $active_sect_border;
+        }
         .top_bar
         {
             height: $top_bar_height;
-            padding-left: 3rem;
+            padding-left: $arrow_area_width;
             gap: 2rem;
             color: $section_header_col;
             span.std_flex
@@ -103,6 +116,7 @@
                 text-align: center;
                 font-size: 3rem;
                 color: $arrow_color;
+                cursor: pointer;
             } 
             .cards_box
             {

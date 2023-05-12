@@ -3,6 +3,8 @@ import { reactive } from "vue";
 export const store = reactive(
     {
         visualizing         : false, 
+        active_section      : false, //Movie
+        active_img          : [0,0], 
         img_per_row         : 7, 
         current_input       : "",
         previous_input      : "", 

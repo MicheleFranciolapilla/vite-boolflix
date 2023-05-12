@@ -93,6 +93,12 @@
                 else if ((vote - int) > 0.25)
                     this.vote_array[int] = "fa-solid fa-star-half-stroke";
                 return vote;
+            },
+
+            toggle_active_img()
+            {
+                if (this.index != this.store.active_img[this.app_section])
+                    this.store.active_img[this.app_section] = this.index;
             }
 
         }
@@ -104,7 +110,9 @@
         <div class="empty_obj" v-if="(is_empty())">
             <img src="empty.png" alt="">
         </div>
-        <div v-else class="image_box position-relative">
+        <div v-else class="image_box position-relative" 
+            v-bind:class="((app_section == store.active_section) && (index == store.active_img[app_section])) ? ('active_img') : ('')"
+            v-on:click="toggle_active_img()">
             <div class="overview position-absolute" 
                 v-bind:style="(app_section == movie) ? ('top: 97%; left: 25%;') : ((index == 0) ? ('left: 25%;') : ('right: 25%;'))">
                 <h5 class="mt-1 mb-0 text-center">{{ (app_section == movie) ? (current_card.original_title) : (current_card.original_name) }}</h5>
@@ -171,6 +179,10 @@
                     animation-name: text_appears;
                     animation-duration: 0.75s;
                 }
+            }
+            &.active_img
+            {
+                border-color: $active_img_border;
             }
             .overview
             {
