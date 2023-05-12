@@ -3,10 +3,15 @@
     export default
     {
         name    : "Comp_Single_Card",
-        props   : ['current_card'],
+        props   : ['current_card', 'index', 'app_section'],
         data()
         {
             return {
+                // Costanti semantiche per composizione url api:
+                // **********************
+                movie       : 0,
+                tv          : 1, 
+                // **********************
                 image_url   : "",
                 flags_url   : "https://flagcdn.com/40x30/",
                 vote_array  : ["","","","",""],
@@ -67,7 +72,7 @@
                     }
                 return this.flags_url.concat(str, ".png");
             },
-/* <i class="fa-solid fa-star"></i> */
+
             get_vote()
             {
                 let vote = this.current_card.vote_average / 2;
@@ -93,13 +98,17 @@
         }
     }
 </script>
-
+<!-- ()'top: 55%; right: 25%' -->
 <template>
     <div class="single_card_block">
         <div class="empty_obj" v-if="(is_empty())">
             <img src="empty.png" alt="">
         </div>
-        <div v-else class="image_box">
+        <div v-else class="image_box position-relative">
+            <div class="overview position-absolute" 
+                v-bind:style="(app_section == movie) ? ('top: 97%; left: 25%;') : ((index == 0) ? ('left: 25%;') : ('right: 25%;'))">
+                <span></span>
+            </div>
             <img v-bind:src="get_image_url()" alt="">
             <div class="details std_flex flex-column">
                 <span class="title">{{ get_card_title() }}</span>
@@ -144,6 +153,32 @@
         {
             width: calc(100%);
             height: calc(100%);
+            border: 3px solid transparent;
+            &:hover
+            {
+                border-color: $img_hover_border_c;
+                .overview
+                {
+                    opacity: 1;
+                    width: 90%;
+                    height: 80%;
+                    animation-name: text_appears;
+                    animation-duration: 1.5s;
+                }
+            }
+            .overview
+            {
+                width: 0;
+                height: 0;
+                z-index: 999;
+                bottom: 75%;
+                border: 2px solid black;
+                border-radius: 5px;
+                background-color: $overview_bg_color;
+                overflow-y: auto;
+                opacity: 0;
+                transition: height 0.75s, width 1s, opacity 1.5s;
+            }
             img
             {
                 width: 100%;
@@ -200,5 +235,24 @@
         }
     }
 
+    @keyframes text_appears
+    {
+        0%
+        {
+            color: $overview_txt_color;
+        }
+        1%
+        {
+            color: $overview_bg_color;
+        }
+        99%
+        {
+            color: $overview_bg_color;
+        }
+        100%
+        {
+            color: $overview_txt_color;
+        }
+    }
 
 </style>

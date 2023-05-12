@@ -47,7 +47,7 @@
                 <div class="single_card"
                     v-for="(item, index) in store.data_on_screen[app_section]"
                     :key="index">
-                    <Comp_Single_Card :current_card = "item" />
+                    <Comp_Single_Card :current_card = "item" :index = "index" :app_section = "app_section" />
                 </div>
             </div>
             <span class="right_scroll"><i class="fa-solid fa-angle-right"></i></span>
@@ -113,7 +113,6 @@
                 {
                     width: calc(100% / $img_per_row);
                     height: calc(100%);
-                    border: 3px solid transparent;
                 }
             } 
         }
